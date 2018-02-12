@@ -1,9 +1,11 @@
-<div id="wrapper">
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <app-navbar></app-navbar>
-    <app-sidebar></app-sidebar>
-  </nav>
-  <div id="page-wrapper">
-    <router-outlet></router-outlet>
+<app-navbar></app-navbar>
+<div id="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <app-sidebar></app-sidebar>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>

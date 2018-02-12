@@ -9,7 +9,7 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './categories/categories.component';
-
+import { AddComponent } from './categories/add/add.component';
 import { MessagesComponent } from './messages/messages.component';
 
 
@@ -19,8 +19,8 @@ import { MessageService } from './message.service';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-//Material+flex
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -28,7 +28,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     AppComponent,
     MessagesComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +39,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    DataTablesModule
   ],
   providers: [CategoryService, MessageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddComponent]
 })
 export class AppModule { }
