@@ -1,10 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CategoryService } from '../category.service';
 import { Category } from '../category.model';
 import { Subject } from 'rxjs/Subject';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataTableDirective } from 'angular-datatables';
+
+
 import { AddComponent } from './add/add.component';
+import { EditComponent } from './edit/edit.component';
+import { RemoveComponent } from './remove/remove.component';
 
 @Component({
   selector: 'app-categories',
@@ -12,9 +17,12 @@ import { AddComponent } from './add/add.component';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  categories: Category[];
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+
+  categories: Category[];
 
   constructor(private categoryService: CategoryService, private modalService: NgbModal) { }
 
@@ -22,7 +30,7 @@ export class CategoriesComponent implements OnInit {
     this.getCategories();
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 15,
+      pageLength: 100,
       language: { "url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json" }
     };
   }
@@ -30,24 +38,39 @@ export class CategoriesComponent implements OnInit {
   getCategories(){
     this.categoryService.getCategories().subscribe(
       categories => {
-        this.categories = categories
+        this.categories = categories;
         this.dtTrigger.next();
       }
     );
     console.log(this.categories);
   }
 
-  numProds(category: Category){
-    return category.products.length;
-  }
-
   edit(category: Category){
-    const modalRef = this.modalService.open(AddComponent);
-
+    const modalRef = this.modalService.open(EditComponent);
+    modalRef.componentInstance.category = category;
   }
 
   remove(category: Category){
+    const modalRef = this.modalService.open(RemoveComponent);
 
+  }
+
+  add(){
+    const modalRef = this.modalService.open(AddComponent);
+    modalRef.result.then((data) => {
+      //on close
+      this.categories.push(data);
+      this.getCategories();
+      console.log(data);
+    }, (reason) => {
+      //on dismiss
+    });
+  }
+
+  addRow(data: Category): void {
+    this.dtElement.dtInstance.then( (dtInstance: DataTables.Api) => {
+      dtInstance.row.add(data);
+    });
   }
 }
 

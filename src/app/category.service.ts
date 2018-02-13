@@ -33,13 +33,13 @@ export class CategoryService {
           );
   }
 
-  getCategory(id): Observable<Category>{
-    const url = `${this.endPoint}/${id}`;
-    return this.http.get<Category>(url).pipe(
-      tap(_ => this.log(`fetched category id=${id}`)),
-      catchError(this.handleError<Category>(`category id=${id}`))
-    ); 
-  }
+  // getCategory(id): Observable<Category>{
+  //   const url = `${this.endPoint}/${id}`;
+  //   return this.http.get<Category>(url).pipe(
+  //     tap(_ => this.log(`fetched category id=${id}`)),
+  //     catchError(this.handleError<Category>(`category id=${id}`))
+  //   ); 
+  // }
 
   /*
     POST: /categories
@@ -68,7 +68,7 @@ export class CategoryService {
     PUT: /categories
   */
   updateCategory(category: Category): Observable<any> {
-    return this.http.put(this.endPoint, category, httpOptions).pipe(
+    return this.http.put(this.endPoint + category._id, category, httpOptions).pipe(
       tap(_ => this.log('updated cat id=${category.id}')),
       catchError(this.handleError<any>('updateCategory'))
       );

@@ -21,6 +21,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
+import { EditComponent } from './categories/edit/edit.component';
+import { RemoveComponent } from './categories/remove/remove.component';
 
 
 
@@ -29,7 +31,9 @@ import { DataTablesModule } from 'angular-datatables';
     AppComponent,
     MessagesComponent,
     CategoriesComponent,
-    AddComponent
+    AddComponent,
+    EditComponent,
+    RemoveComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,6 @@ import { DataTablesModule } from 'angular-datatables';
   ],
   providers: [CategoryService, MessageService],
   bootstrap: [AppComponent],
-  entryComponents: [AddComponent]
+  entryComponents: [AddComponent, EditComponent, RemoveComponent]
 })
 export class AppModule { }

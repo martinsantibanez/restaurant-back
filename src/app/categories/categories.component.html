@@ -1,24 +1,35 @@
 
 <div class="row">
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-  <thead>
-    <tr>
-      <!-- <th>ID</th> -->
-      <th>Nombre</th>
-      <th>Visibilidad</th>
-      <th>Num. de productos</th>
-      <th>Acción</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let category of categories">
-      <!-- <td>{{ category._id }}</td> -->
-      <td>{{ category.name }}</td>
-      <td>{{ category.show }}</td>
-      <td>{{ numProds(category) }}</td>
-      <td><button class="btn btn-lg btn-outline-primary" (click)="edit(category)">Editar</button>
-      <button class="btn btn-lg btn-outline-primary" (click)="remove(category)">Eliminar</button></td>
-    </tr>
-  </tbody>
-  </table>
+  <div class="col-md-12">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+      <tr>
+        <!-- <th>ID</th> -->
+        <th>Nombre</th>
+        <th>Visibilidad</th>
+        <th>Num. de productos</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <!-- <td>{{ category._id }}</td> -->
+        <td>{{ category.name }}</td>
+        <td>{{ category.show }}</td>
+        <td>{{ category.products.length }}</td>
+        <td>
+        <button class="btn btn-lg btn-outline-primary">Productos</button>
+        <button class="btn btn-lg btn-outline-warning" (click)="edit(category)">Editar</button>
+        <button class="btn btn-lg btn-outline-danger" (click)="remove(category)">Eliminar</button></td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-lg btn-outline-success" style="width:100%;" (click)="add()">Agregar</button>
+  </div>
 </div>

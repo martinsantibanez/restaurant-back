@@ -1,6 +1,6 @@
-<form (ngSubmit)="save()" #addForm="ngForm">
+<form (ngSubmit)="onSubmit()" #editForm="ngForm">
   <div class="modal-header">
-    <h4 class="modal-title">Agregar {{category.name}}</h4>
+    <h4 class="modal-title">Editar {{category.name}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -23,7 +23,9 @@
 
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-success" [disabled]="!addForm.form.valid">Guardar</button>
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Close click')">Cancelar</button>
+    <button type="submit" class="btn btn-success" [disabled]="!editForm.form.valid">Guardar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </form>
+
+
