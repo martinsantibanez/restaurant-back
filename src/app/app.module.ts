@@ -13,9 +13,10 @@ import { MessagesComponent } from './messages/messages.component';
 
 
 //Services
-import { CategoryService } from './category.service';
-import { ProductService } from './product.service';
-import { MessageService } from './message.service';
+import { CategoryService } from './core/category.service';
+import { ProductService } from './core/product.service';
+import { MessageService } from './core/message.service';
+import { IngredientService } from './core/ingredient.service';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -28,6 +29,10 @@ import { ProductsComponent } from './products/products.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
+import { IngredientsComponent } from './ingredients/ingredients.component';
+import { IngredientAddComponent } from './ingredients/ingredient-add/ingredient-add.component';
+import { IngredientEditComponent } from './ingredients/ingredient-edit/ingredient-edit.component';
+import { IngredientRemoveComponent } from './ingredients/ingredient-remove/ingredient-remove.component';
 
 
 
@@ -42,7 +47,11 @@ import { ProductAddComponent } from './products/product-add/product-add.componen
     ProductsComponent,
     ProductAddComponent,
     ProductEditComponent,
-    ProductRemoveComponent
+    ProductRemoveComponent,
+    IngredientsComponent,
+    IngredientAddComponent,
+    IngredientEditComponent,
+    IngredientRemoveComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +64,7 @@ import { ProductAddComponent } from './products/product-add/product-add.componen
     NgbModule.forRoot(),
     DataTablesModule
   ],
-  providers: [CategoryService, MessageService, ProductService],
+  providers: [CategoryService, MessageService, ProductService, IngredientService],
   bootstrap: [AppComponent],
   entryComponents: [
     CategoryAddComponent,
@@ -63,7 +72,10 @@ import { ProductAddComponent } from './products/product-add/product-add.componen
     CategoryRemoveComponent,
     ProductAddComponent,
     ProductEditComponent,
-    ProductRemoveComponent
+    ProductRemoveComponent,
+    IngredientAddComponent,
+    IngredientEditComponent,
+    IngredientRemoveComponent
   ]
 })
 export class AppModule { }

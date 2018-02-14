@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { CategoryService } from '../category.service';
-import { Category } from '../category.model';
+import { CategoryService } from '../core/category.service';
+import { Category } from '../core/category.model';
 import { Subject } from 'rxjs/Subject';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

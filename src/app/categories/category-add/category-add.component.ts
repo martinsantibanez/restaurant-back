@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Category } from '../../category.model';
-import { CategoryService } from '../../category.service';
+import { Category } from '../../core/category.model';
+import { CategoryService } from '../../core/category.service';
 
 @Component({
   selector: 'category-add',
@@ -23,10 +23,8 @@ export class CategoryAddComponent implements OnInit {
 
   save(){
     this.categoryService.addCategory(this.category).subscribe(
-      () => {
-        this.activeModal.close(this.category);
-      }
-      );
+      () => this.activeModal.close(this.category)
+    );
   }
 
 }

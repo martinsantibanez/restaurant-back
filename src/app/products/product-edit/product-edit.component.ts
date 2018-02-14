@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Product } from '../../product.model';
-import { ProductService } from '../../product.service';
+import { Product } from '../../core/product.model';
+import { ProductService } from '../../core/product.service';
 
 @Component({
   selector: 'app-product-edit',

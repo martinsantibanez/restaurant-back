@@ -9,6 +9,7 @@ const assert = require('assert');
 var User = require('../models/User.js');
 var Product = require('../models/Product.js');
 var Category = require('../models/Category.js');
+var Ingredient = require('../models/Ingredient.js');
 
 //DB
 const url = 'mongodb://localhost:27017';
@@ -133,6 +134,43 @@ router.put('/products/:id', function(req, res, next) {
 
 router.delete('/products/:id', function(req, res, next) {
     Product.findByIdAndRemove(req.params.id, req.body, (err, post) => {
+        if(err) return next(err);
+        res.json(post);
+    });
+});
+////
+//Ingredidents
+router.get('/ingredients', (req, res, next) => {
+    Ingredient.find((err, ingredients) => {
+        if(err) return next(err);
+        response.data = ingredients;
+        res.json(response.data);
+    })
+});
+
+router.post('/ingredients', (req,res,next) => {
+    Ingredient.create(req.body, (err, post) => {
+        if(err) return next(err);
+        res.json(post);
+    })
+});
+
+router.get('/ingredients/:id', (req,res,next) => {
+    Ingredient.findById(req.params.id, (err, post) => {
+        if(err) return next(err);
+        res.json(post);
+    });
+});
+
+router.put('/ingredients/:id', function(req, res, next) {
+    Ingredient.findByIdAndUpdate(req.params.id, req.body, (err, post) => {
+        if(err) return next(err);
+        res.json(post);
+    });
+});
+
+router.delete('/ingredients/:id', function(req, res, next) {
+    Ingredient.findByIdAndRemove(req.params.id, req.body, (err, post) => {
         if(err) return next(err);
         res.json(post);
     });

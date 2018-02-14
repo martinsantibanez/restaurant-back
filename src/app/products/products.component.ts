@@ -4,8 +4,8 @@ import { Subject } from 'rxjs/Subject';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 
-import { ProductService } from '../product.service';
-import { Product } from '../product.model';
+import { ProductService } from '../core/product.service';
+import { Product } from '../core/product.model';
 
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
