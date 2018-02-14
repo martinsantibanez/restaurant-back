@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Ingredient = require('./Ingredient.js');
+var IngredientSchema = mongoose.model('Ingredient').schema;
+
 
 var productSchema = Schema({
     name: String,
@@ -7,7 +10,8 @@ var productSchema = Schema({
     description: String,
     recipe: [
       {
-        ingredient: {type: Schema.Types.ObjectId, ref: 'Tag'},
+        ingredient: {type: Schema.Types.ObjectId, ref: 'Ingredient'},
+        // ingredient: IngredientSchema,
         quantity: Number
       }
     ]

@@ -1,0 +1,39 @@
+<div class="card">
+  <h4 class="card-header bg-info text-white text-center">
+    Receta de {{ product.name }}
+  </h4>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped" *ngIf="product">
+        <thead>
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>Ingrediente</th>
+            <th>Cantidad</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of product.recipe">
+            <!-- <td>{{ category._id }}</td> -->
+            <td>{{ item.ingredient.name }}</td>
+            <td>{{ item.quantity }} {{ item.ingredient.unit }}</td>
+            <td>
+            <button class="btn btn-lg btn-outline-primary" >?</button>
+            <button class="btn btn-lg btn-outline-warning" (click)="edit(product)">Editar</button>
+            <button class="btn btn-lg btn-outline-danger" (click)="remove(product)">Eliminar</button></td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-lg btn-outline-success" style="width:100%;" (click)="addIngredient()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>

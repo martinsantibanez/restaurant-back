@@ -1,6 +1,7 @@
 import { Ingredient } from './ingredient.model';
 
-class RecipeItem {
+export class RecipeItem {
+  _id: string;
   ingredient: Ingredient;
   quantity: number;
 }

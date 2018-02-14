@@ -30,6 +30,14 @@ export class IngredientService {
           catchError(this.handleError('getIngredients', []))
           );
   }
+
+  getIngredient(id: string): Observable<Ingredient>{
+    return this.http.get<Ingredient>(this.endPoint+id)
+      .pipe(
+        tap(ingredient => this.log('fetched ingredient')),
+        catchError(this.handleError<Ingredient>('getIngredient'))
+        );
+  }
   /*
     POST: /ingredients
   */

@@ -47,21 +47,21 @@ export class ProductsComponent implements OnInit {
     const modalRef = this.modalService.open(ProductAddComponent);
     modalRef.result.then(data => {
       this.getProducts();
-    });
+    }, r => {});
   }
   edit(product: Product){
     const modalRef = this.modalService.open(ProductEditComponent);
     modalRef.componentInstance.product = product;
     modalRef.result.then(data => {
       this.getProducts();
-    });
+    }, r => {});
   }
   remove(product: Product){
     const modalRef = this.modalService.open(ProductRemoveComponent);
     modalRef.componentInstance.product = product;
     modalRef.result.then(data => {
       this.getProducts();
-    });
+    }, r => {});
   }
 
   renderTable(): void {

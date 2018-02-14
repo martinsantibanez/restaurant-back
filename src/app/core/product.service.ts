@@ -26,9 +26,17 @@ export class ProductService {
   getProducts(): Observable<Product[]>{
     return this.http.get<Product[]>(this.endPoint)
         .pipe(
-          tap (products => this.log('fetched products')),
+          tap(products => this.log('fetched products')),
           catchError(this.handleError('getProducts', []))
           );
+  }
+
+  getProduct(id: string): Observable<Product>{
+    return this.http.get<Product>(this.endPoint+id)
+      .pipe(
+        tap(product => this.log('fetched product')),
+        catchError(this.handleError<Product>('getProduct'))
+        );
   }
 
   /*
@@ -85,7 +93,8 @@ export class ProductService {
    
     /** Log a HeroService message with the MessageService */
     private log(message: string) {
-      this.messageService.add('HeroService: ' + message);
+      // this.messageService.add('HeroService: ' + message);
+      console.log('HeroService: ' + message);
     }
 
 }

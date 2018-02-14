@@ -104,7 +104,9 @@ router.delete('/categories/:id', function(req, res, next) {
 ////
 //Products
 router.get('/products', (req, res, next) => {
-    Product.find((err, products) => {
+    Product.find().
+    populate('recipe.ingredient').
+    exec((err, products) => {
         if(err) return next(err);
         response.data = products;
         res.json(response.data);
@@ -119,7 +121,9 @@ router.post('/products', (req,res,next) => {
 });
 
 router.get('/products/:id', (req,res,next) => {
-    Product.findById(req.params.id, (err, post) => {
+    Product.findById(req.params.id).
+    populate('recipe.ingredient').
+    exec((err, post) => {
         if(err) return next(err);
         res.json(post);
     });

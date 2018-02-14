@@ -33,6 +33,10 @@ import { IngredientsComponent } from './ingredients/ingredients.component';
 import { IngredientAddComponent } from './ingredients/ingredient-add/ingredient-add.component';
 import { IngredientEditComponent } from './ingredients/ingredient-edit/ingredient-edit.component';
 import { IngredientRemoveComponent } from './ingredients/ingredient-remove/ingredient-remove.component';
+import { ProductRecipeComponent } from './products/product-recipe/product-recipe.component';
+import { RecipeAddIngredientComponent } from './products/product-recipe/recipe-add-ingredient/recipe-add-ingredient.component';
+import { RecipeEditIngredientComponent } from './products/product-recipe/recipe-edit-ingredient/recipe-edit-ingredient.component';
+import { RecipeRemoveIngredientComponent } from './products/product-recipe/recipe-remove-ingredient/recipe-remove-ingredient.component';
 
 
 
@@ -51,7 +55,11 @@ import { IngredientRemoveComponent } from './ingredients/ingredient-remove/ingre
     IngredientsComponent,
     IngredientAddComponent,
     IngredientEditComponent,
-    IngredientRemoveComponent
+    IngredientRemoveComponent,
+    ProductRecipeComponent,
+    RecipeAddIngredientComponent,
+    RecipeEditIngredientComponent,
+    RecipeRemoveIngredientComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +83,10 @@ import { IngredientRemoveComponent } from './ingredients/ingredient-remove/ingre
     ProductRemoveComponent,
     IngredientAddComponent,
     IngredientEditComponent,
-    IngredientRemoveComponent
+    IngredientRemoveComponent,
+    RecipeAddIngredientComponent,
+    RecipeEditIngredientComponent,
+    RecipeRemoveIngredientComponent
   ]
 })
 export class AppModule { }
