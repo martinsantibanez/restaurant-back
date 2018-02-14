@@ -9,20 +9,25 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { AddComponent } from './categories/add/add.component';
 import { MessagesComponent } from './messages/messages.component';
 
 
 //Services
 import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
 import { MessageService } from './message.service';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
-import { EditComponent } from './categories/edit/edit.component';
-import { RemoveComponent } from './categories/remove/remove.component';
+import { CategoryAddComponent } from './categories/category-add/category-add.component';
+import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
+import { CategoryRemoveComponent } from './categories/category-remove/category-remove.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
+import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
+import { ProductAddComponent } from './products/product-add/product-add.component';
 
 
 
@@ -31,9 +36,13 @@ import { RemoveComponent } from './categories/remove/remove.component';
     AppComponent,
     MessagesComponent,
     CategoriesComponent,
-    AddComponent,
-    EditComponent,
-    RemoveComponent
+    CategoryAddComponent,
+    CategoryEditComponent,
+    CategoryRemoveComponent,
+    ProductsComponent,
+    ProductAddComponent,
+    ProductEditComponent,
+    ProductRemoveComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +55,15 @@ import { RemoveComponent } from './categories/remove/remove.component';
     NgbModule.forRoot(),
     DataTablesModule
   ],
-  providers: [CategoryService, MessageService],
+  providers: [CategoryService, MessageService, ProductService],
   bootstrap: [AppComponent],
-  entryComponents: [AddComponent, EditComponent, RemoveComponent]
+  entryComponents: [
+    CategoryAddComponent,
+    CategoryEditComponent,
+    CategoryRemoveComponent,
+    ProductAddComponent,
+    ProductEditComponent,
+    ProductRemoveComponent
+  ]
 })
 export class AppModule { }

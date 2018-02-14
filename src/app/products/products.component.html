@@ -5,21 +5,21 @@
       <tr>
         <!-- <th>ID</th> -->
         <th>Nombre</th>
-        <th>Visibilidad</th>
-        <th>Num. de productos</th>
+        <th>Precio</th>
+        <th>Descripción</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let category of categories">
+      <tr *ngFor="let product of products">
         <!-- <td>{{ category._id }}</td> -->
-        <td>{{ category.name }}</td>
-        <td>{{ category.show }}</td>
-        <td>{{ category.products.length }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.description }}</td>
         <td>
-        <button class="btn btn-lg btn-outline-primary">Productos</button>
-        <button class="btn btn-lg btn-outline-warning" (click)="edit(category)">Editar</button>
-        <button class="btn btn-lg btn-outline-danger" (click)="remove(category)">Eliminar</button></td>
+        <button class="btn btn-lg btn-outline-primary">Receta</button>
+        <button class="btn btn-lg btn-outline-warning" (click)="edit(product)">Editar</button>
+        <button class="btn btn-lg btn-outline-danger" (click)="remove(product)">Eliminar</button></td>
       </tr>
     </tbody>
     </table>

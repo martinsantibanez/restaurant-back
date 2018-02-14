@@ -4,6 +4,7 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CategoriesComponent } from './categories/categories.component';
+import { ProductsComponent } from './products/products.component';
 const routes: Routes =[
     /*{ path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
@@ -14,6 +15,7 @@ const routes: Routes =[
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },*/
     { path: 'categories', component: CategoriesComponent },
+    { path: 'products', component: ProductsComponent },
     { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

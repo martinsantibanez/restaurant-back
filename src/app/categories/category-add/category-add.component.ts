@@ -1,17 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Subject } from 'rxjs/Subject';
-
 import { Category } from '../../category.model';
 import { CategoryService } from '../../category.service';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  selector: 'category-add',
+  templateUrl: './category-add.component.html',
+  styleUrls: ['./category-add.component.css']
 })
-export class AddComponent implements OnInit {
+export class CategoryAddComponent implements OnInit {
   category: Category;
   constructor(
     public activeModal: NgbActiveModal,
@@ -20,6 +18,7 @@ export class AddComponent implements OnInit {
   ngOnInit() {
     this.category = new Category();
     this.category.products = [];
+    this.category.show = true;
   }
 
   save(){

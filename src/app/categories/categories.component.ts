@@ -7,9 +7,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 
 
-import { AddComponent } from './add/add.component';
-import { EditComponent } from './edit/edit.component';
-import { RemoveComponent } from './remove/remove.component';
+import { CategoryAddComponent } from './category-add/category-add.component';
+import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { CategoryRemoveComponent } from './category-remove/category-remove.component';
 
 @Component({
   selector: 'app-categories',
@@ -39,38 +39,51 @@ export class CategoriesComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       categories => {
         this.categories = categories;
-        this.dtTrigger.next();
+        this.renderTable();
       }
     );
     console.log(this.categories);
   }
 
   edit(category: Category){
-    const modalRef = this.modalService.open(EditComponent);
+    const modalRef = this.modalService.open(CategoryEditComponent);
     modalRef.componentInstance.category = category;
+    modalRef.result.then((data) => {
+      this.getCategories();
+    }, (reason) => {});
   }
 
   remove(category: Category){
-    const modalRef = this.modalService.open(RemoveComponent);
-
+    const modalRef = this.modalService.open(CategoryRemoveComponent);
+    modalRef.componentInstance.category = category;
+    modalRef.result.then((data) => {
+      this.getCategories();
+    }, (reason) => {})
   }
 
   add(){
-    const modalRef = this.modalService.open(AddComponent);
+    const modalRef = this.modalService.open(CategoryAddComponent);
     modalRef.result.then((data) => {
       //on close
       this.categories.push(data);
       this.getCategories();
-      console.log(data);
     }, (reason) => {
       //on dismiss
     });
   }
 
-  addRow(data: Category): void {
-    this.dtElement.dtInstance.then( (dtInstance: DataTables.Api) => {
-      dtInstance.row.add(data);
-    });
+  renderTable(): void {
+    if(this.dtElement.dtInstance){
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.dtTrigger.next();
+      });
+    } else { 
+      this.dtTrigger.next();
+    }
   }
 }
+
 

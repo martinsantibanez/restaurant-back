@@ -18,12 +18,12 @@ const httpOptions = {
 
 @Injectable()
 export class CategoryService {
-    private endPoint = ApiConfig.API_ENDPOINT + 'categories/';
+  private endPoint = ApiConfig.API_ENDPOINT + 'categories/';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   /*
-    GET: /categories, /categories/:id
+    GET: /categories
   */
   getCategories(): Observable<Category[]>{
     return this.http.get<Category[]>(this.endPoint)
@@ -32,14 +32,6 @@ export class CategoryService {
           catchError(this.handleError('getCategories', []))
           );
   }
-
-  // getCategory(id): Observable<Category>{
-  //   const url = `${this.endPoint}/${id}`;
-  //   return this.http.get<Category>(url).pipe(
-  //     tap(_ => this.log(`fetched category id=${id}`)),
-  //     catchError(this.handleError<Category>(`category id=${id}`))
-  //   ); 
-  // }
 
   /*
     POST: /categories
@@ -55,17 +47,15 @@ export class CategoryService {
   /*
     DELETE: /categories/:id
   */
-  deleteCategory(category: Category | string): Observable<Category>{
-    const id = typeof category === 'string' ? category : category._id;
-    const url = '${this.endPoint}/${id}';
-    return this.http.delete<Category>(url, httpOptions)
+  deleteCategory(category: Category): Observable<Category>{
+    return this.http.delete<Category>(this.endPoint + category._id, httpOptions)
     .pipe(
       tap(_ => this.log('deleted cat id=${id}')),
       catchError(this.handleError<Category>('deleteCategory'))
       );
   }
   /*
-    PUT: /categories
+    PUT: /categories/:id
   */
   updateCategory(category: Category): Observable<any> {
     return this.http.put(this.endPoint + category._id, category, httpOptions).pipe(
