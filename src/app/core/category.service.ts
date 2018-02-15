@@ -33,6 +33,12 @@ export class CategoryService {
           );
   }
 
+  getCategory(id: string): Observable<Category>{
+    return this.http.get<Category>(this.endPoint + id, httpOptions)
+    .pipe(
+      tap( (c: Category) => this.log('G'))
+    );
+  }
   /*
     POST: /categories
   */

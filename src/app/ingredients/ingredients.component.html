@@ -1,34 +1,43 @@
-<div class="row">
-  <div class="col-md-12">
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-    <thead>
-      <tr>
-        <!-- <th>ID</th> -->
-        <th>Nombre</th>
-        <th>Stock</th>
-        <th>UM</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ingredient of ingredients">
-        <!-- <td>{{ category._id }}</td> -->
-        <td>{{ ingredient.name }}</td>
-        <td>{{ ingredient.stock }}</td>
-        <td>{{ ingredient.unit }}</td>
-        <td>
-        <button class="btn btn-lg btn-outline-primary">?</button>
-        <button class="btn btn-lg btn-outline-warning" (click)="edit(ingredient)">Editar</button>
-        <button class="btn btn-lg btn-outline-danger" (click)="remove(ingredient)">Eliminar</button></td>
-      </tr>
-    </tbody>
-    </table>
+<div class="card">
+  <div class="card-header bg-info text-white">
+    <h4 class="text-center">
+      Ingredientes
+    </h4>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-  </div>
-  <div class="col-md-4">
-    <button class="btn btn-lg btn-outline-success" style="width:100%;" (click)="add()">Agregar</button>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>Nombre</th>
+            <th>Stock</th>
+            <th>UM</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of ingredients">
+            <!-- <td>{{ category._id }}</td> -->
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.stock }}</td>
+            <td>{{ ingredient.unit }}</td>
+            <td>
+            <!-- <button class="btn btn-lg btn-outline-primary">?</button> -->
+            <button class="btn btn-lg btn-outline-warning" (click)="edit(ingredient)">Editar</button>
+            <button class="btn btn-lg btn-outline-danger" (click)="remove(ingredient)">Eliminar</button></td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-lg btn-success" style="width:100%;" (click)="add()">Agregar</button>
+      </div>
+    </div>
   </div>
 </div>

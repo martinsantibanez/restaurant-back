@@ -6,7 +6,7 @@ var ProductSchema = mongoose.model('Product').schema;
 var categorySchema = Schema({
     name: String,
     show: Boolean,
-    products: [ProductSchema]
+    products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 });
 
 var Category = mongoose.model('Category', categorySchema);

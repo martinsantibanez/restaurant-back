@@ -37,6 +37,9 @@ import { ProductRecipeComponent } from './products/product-recipe/product-recipe
 import { RecipeAddIngredientComponent } from './products/product-recipe/recipe-add-ingredient/recipe-add-ingredient.component';
 import { RecipeEditIngredientComponent } from './products/product-recipe/recipe-edit-ingredient/recipe-edit-ingredient.component';
 import { RecipeRemoveIngredientComponent } from './products/product-recipe/recipe-remove-ingredient/recipe-remove-ingredient.component';
+import { CategoryProductsComponent } from './categories/category-products/category-products.component';
+import { CategoryRemoveProductComponent } from './categories/category-products/category-remove-product/category-remove-product.component';
+import { CategoryAddProductComponent } from './categories/category-products/category-add-product/category-add-product.component';
 
 
 
@@ -59,7 +62,10 @@ import { RecipeRemoveIngredientComponent } from './products/product-recipe/recip
     ProductRecipeComponent,
     RecipeAddIngredientComponent,
     RecipeEditIngredientComponent,
-    RecipeRemoveIngredientComponent
+    RecipeRemoveIngredientComponent,
+    CategoryProductsComponent,
+    CategoryRemoveProductComponent,
+    CategoryAddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +92,9 @@ import { RecipeRemoveIngredientComponent } from './products/product-recipe/recip
     IngredientRemoveComponent,
     RecipeAddIngredientComponent,
     RecipeEditIngredientComponent,
-    RecipeRemoveIngredientComponent
+    RecipeRemoveIngredientComponent,
+    CategoryRemoveProductComponent,
+    CategoryAddProductComponent
   ]
 })
 export class AppModule { }

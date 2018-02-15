@@ -66,7 +66,9 @@ router.get('/users/:id', (req, res, next) => {
 
 //Categories
 router.get('/categories', (req, res, next) => {
-    Category.find((err, categories) => {
+    Category.find().
+    populate('products').
+    exec((err, categories) => {
         if(err) return next(err);
         response.data = categories;
         res.json(response.data);
@@ -81,7 +83,9 @@ router.post('/categories', (req,res,next) => {
 });
 
 router.get('/categories/:id', (req,res,next) => {
-    Category.findById(req.params.id, (err, cat) => {
+    Category.findById(req.params.id).
+    populate('products').
+    exec((err, cat) => {
         if(err) return next(err);
         res.json(cat);
     });

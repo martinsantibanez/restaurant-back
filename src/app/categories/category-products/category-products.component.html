@@ -1,0 +1,43 @@
+<div class="card" *ngIf="category">
+  <div class="card-header bg-info text-white">
+    <h4 class="text-center">
+      Productos de {{ category.name }}
+      <button class="btn btn-sm btn-outline-light" (click)="editCategory()" style="margin-left: 1em;">Cambiar Nombre</button>
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped" *ngIf="category">
+        <thead>
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of category.products">
+            <!-- <td>{{ category._id }}</td> -->
+            <td>{{ product.name }} <button class="btn btn-sm btn-outline-primary" (click)="editProduct(product)">Editar</button></td>
+            <td>{{ product.price }}</td>
+            <td>
+              <!-- <button class="btn btn-lg btn-outline-primary" >?</button> -->
+              <!-- <button class="btn btn-lg btn-outline-warning" (click)="editIngredient(item)">Editar</button> -->
+              <button class="btn btn-lg btn-outline-danger" (click)="removeProduct(product)">Quitar</button>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-lg btn-outline-success" style="width:100%;" (click)="addProduct()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>

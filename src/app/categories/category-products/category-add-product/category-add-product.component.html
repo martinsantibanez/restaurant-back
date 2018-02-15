@@ -4,29 +4,22 @@
 
 <form (ngSubmit)="add()" #addForm="ngForm">
   <div class="modal-header">
-    <h4 class="modal-title">Agregar ingrediente a {{product.name}}</h4>
+    <h4 class="modal-title">Agregar producto a {{category.name}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label for="typeahead-focus">Ingrediente:</label>
+      <label for="typeahead-focus">Producto:</label>
       <input id="typeahead-template" type="text" class="form-control" name="typeahead-template"
-      [(ngModel)]="recipeItem.ingredient"
+      [(ngModel)]="selectedProduct"
       [ngbTypeahead]="search"
       [resultTemplate]="rt"
       [inputFormatter]="formatter" />
     </div>
-    <div class="input-group mb-3">
-      <input type="number" class="form-control" placeholder="Cantidad" aria-label="Cantidad" aria-describedby="basic-addon2" name="quantity" [(ngModel)]="recipeItem.quantity">
-      <div class="input-group-append">
-        <span class="input-group-text" id="basic-addon2" *ngIf="recipeItem.ingredient">{{recipeItem.ingredient.unit}}</span>
-      </div>
-    </div>
   </div>
   
-
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" [disabled]="!addForm.form.valid">Guardar</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Close click')">Cancelar</button>
