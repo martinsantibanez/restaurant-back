@@ -16,10 +16,12 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'mean';
 
 //Mongoose
-mongoose.connect(url + '/' + dbName);
+// mongoose.connect(url + '/' + dbName);
+mongoose.connect(process.env.MONGODB_URI);
 
 const connection = (closure) => {
-    return MongoClient.connect(url, (err, client) => {
+    // return MongoClient.connect(url, (err, client) => {
+    return MongoClient.connect(process.env.MONGODB_URI, (err, client) => {
         assert.equal(null, err);
         console.log("Conectado.");
         const db = client.db(dbName);
