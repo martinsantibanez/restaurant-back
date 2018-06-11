@@ -48,10 +48,9 @@ export class RecipeAddIngredientComponent implements OnInit {
   }
 
   add(){
-    this.product.recipe.push(this.recipeItem);
-    this.productService.updateProduct(this.product).subscribe(
-      () => this.activeModal.close("Updated")
-    );
+    this.productService.addIngredientToRecipe(this.product, this.recipeItem).subscribe(
+      () => { this.activeModal.close("Updated"); }
+     );
   }
 
 

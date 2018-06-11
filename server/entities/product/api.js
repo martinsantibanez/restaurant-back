@@ -3,6 +3,7 @@ const getAllProducts = require('./controller').getAllProducts;
 const createProduct = require('./controller').createProduct;
 const editProduct = require('./controller').editProduct;
 const deleteProduct = require('./controller').deleteProduct;
+const addIngredientToRecipe = require('./controller').addIngredientToRecipe;
 
 const productAPI = (app) => {
   //get all products
@@ -38,6 +39,20 @@ const productAPI = (app) => {
     deleteProduct(req.params.id, req.body).then(
       (result) => { res.send(result); },
       (error) => { res.status(400).send(error)}
+    );
+  });
+  //get recipe of a product
+  app.get('/api/products/:id/recipe', (req, res) => {
+    getProduct(req.params.id).then(
+      (result) => { res.send(result.recipe) },
+      (error) => { res.status(400).send(error); }
+    );
+  });
+  //add an ingredient to product. Body should be {id: product_id, quantity: # }
+  app.post('/api/products/:id/recipe', (req, res) => {
+    addIngredientToRecipe(req.params.id, req.body.id, req.body.quantity).then(
+      (result) => { res.send(result); },
+      (error) => { res.status(400).send(error); }
     );
   });
 };

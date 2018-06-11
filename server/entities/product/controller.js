@@ -1,4 +1,5 @@
 const Product = require('./model');
+const Ingredient = require('../ingredient/model');
 
 const getAllProducts = () => {
   return new Promise((resolve, reject) => {
@@ -70,10 +71,39 @@ const deleteProduct = (product_id) => {
   });
 }
 
+const addIngredientToRecipe = (product_id, ingredient_id, quantity) => {
+  return new Promise((resolve, reject) => {
+    Product.findById(product_id, (error, product) => {
+      if(error || !product) reject(error); 
+      else 
+        Ingredient.findById(ingredient_id, (error, ingredient) => {
+          if(error || !ingredient) reject(error)
+          else {
+            //check that it's not already in the product
+            let match = false
+            for(let i = 0 ; i < product.recipe.length ; i++)
+              if(String(product.recipe[i].ingredient) == String(ingredient)) match = true;
+            if(!match){
+              let newIngredient = { "ingredient": ingredient, "quantity": quantity };
+              product.recipe.push(newIngredient);
+              product.save((error, updatedProduct) => {
+                if(error) reject(error);
+                else resolve(updatedProduct);
+              });
+            } else reject(new Error("Already exists"));
+          }
+        });
+      
+    })
+  })
+}
+
+
 module.exports = {
   getAllProducts,
   getProduct,
   createProduct,
   editProduct,
-  deleteProduct
+  deleteProduct,
+  addIngredientToRecipe
 }

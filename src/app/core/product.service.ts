@@ -8,7 +8,7 @@ import { of } from 'rxjs/observable/of';
 
 import { ApiConfig } from './api.config';
 
-import { Product } from './product.model';
+import { Product, RecipeItem } from './product.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -69,6 +69,18 @@ export class ProductService {
       catchError(this.handleError<any>('updateProduct'))
       );
   }
+/**
+  add ingredient to product's recipe.
+  POST: /products/:id/recipe
+  body: {id: product_id, quantity: #}
+*/
+addIngredientToRecipe(product: Product, item: RecipeItem): Observable<any> {
+  return this.http.post(this.endPoint + product._id + '/recipe', {'id' : item.ingredient._id, 'quantity': item.quantity}, httpOptions)
+  .pipe(
+    tap(_ => this.log('added ingredient to prod')),
+    catchError(this.handleError('addIngredientToRecipe', []))
+  );
+}
 
   
   /**
