@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
-
+const cors = require('cors');
 /**
  * express configuration
  */
@@ -38,6 +38,9 @@ const expressConfig = (app, serverConfigs) => {
       collection : 'sessions',
     }),
   }));
+
+  //cors
+  app.use(cors());
 
   // apply route configs
   require('./routes')(app);

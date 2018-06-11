@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 // var ProductSchema = mongoose.model('Product').schema;
 
 var categorySchema = Schema({
-    name: String,
+    name: {
+      type: String,
+      required: [true, 'Name is required']
+    },
     show: Boolean,
     products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 });

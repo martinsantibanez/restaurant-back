@@ -1,6 +1,26 @@
-# Mean
+# REST Resto
+Sistema para gestión de restaurant realizado usando MEAN stack.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.8.
+## Links útiles
+*Utilizados o por utilizar durante el proceso de desarrollo (los más importantes, además de mucho StackOverflow y google)*
+### ToCheck
+ - https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
+ - https://github.com/saurabh1e/open-pos
+
+### Códigos
+ - https://github.com/shoumma/ReForum
+ - 
+### Tutoriales
+ - https://angular.io/tutorial/toh-pt6
+ - https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
+ - 
+### Documentaciones
+ - http://expressjs.com/es/api.html
+ - http://mongoosejs.com/docs/api.html
+ - https://angular.io/api
+ - https://l-lin.github.io/angular-datatables/#/basic/angular-way
+ - https://ng-bootstrap.github.io/#/components/modal/examples
+ - https://fontawesome.com/icons?d=gallery&m=free
 
 ## Development server
 

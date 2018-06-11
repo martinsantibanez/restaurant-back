@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const serverConfigs = require('./config/serverConfig');
 
 mongoose.connect(serverConfigs.DBURL);
-console.log("DB: "+mongoose.connection.readyState);
 
 const app = express();
 

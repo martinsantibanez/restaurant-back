@@ -1,22 +1,22 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Ingredient = require('./Ingredient.js');
-var IngredientSchema = mongoose.model('Ingredient').schema;
+// var Ingredient = require('./Ingredient.js');
 
 
 var productSchema = Schema({
-    name: String,
+    name: {
+      type: String,
+      required: [true, 'Name is required']
+    },
     price: Number,
     description: String,
     recipe: [
       {
         ingredient: {type: Schema.Types.ObjectId, ref: 'Ingredient'},
-        // ingredient: IngredientSchema,
         quantity: Number
       }
     ]
 });
 
-var Product = mongoose.model('Product', productSchema);
 
-module.exports = Product;
+module.exports = mongoose.model('Product', productSchema);
