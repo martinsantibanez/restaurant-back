@@ -71,39 +71,31 @@ const deleteProduct = (product_id) => {
   });
 }
 
-const addIngredientToRecipe = (product_id, ingredient_id, quantity) => {
+const addIngredientToRecipe = (product_id, element) => {
   return new Promise((resolve, reject) => {
     Product.findById(product_id, (error, product) => {
       if(error || !product) reject(error); 
-      else 
-        Ingredient.findById(ingredient_id, (error, ingredient) => {
-          if(error || !ingredient) reject(error)
-          else {
-            //check that it's not already in the product
-            let match = false;
-            for(let i = 0 ; i < product.recipe.length ; i++)
-              if(String(product.recipe[i].ingredient) == String(ingredient)) match = true;
-            if(!match){
-              let newIngredient = { "ingredient": ingredient, "quantity": quantity };
-              product.recipe.push(newIngredient);
-              product.save((error, updatedProduct) => {
-                if(error) reject(error);
-                else resolve(updatedProduct);
-              });
-            } else reject(new Error("Already exists"));
-          }
-        });
-      
+      else{
+        //check that it's not already in the product
+        var match = product.recipe.id(element._id);
+        if(!match){
+          product.recipe.push(element);
+          product.save((error, updatedProduct) => {
+            if(error) reject(error);
+            else resolve(updatedProduct);
+          });
+        } else reject(new Error("Already exists"));
+      }
     })
   })
 }
 
-const removeIngredientFromRecipe = (product_id, element_id) => {
+const removeIngredientFromRecipe = (product_id, item_id) => {
   return new Promise((resolve, reject) => {
     Product.findById(product_id, (error, product) => {
       if(error || !product) reject(error);
       else {
-        var item = product.recipe.id(element_id);
+        var item = product.recipe.id(item_id);
         if(item){
           item.remove();
           product.save((error, updatedProduct) => {
@@ -119,13 +111,21 @@ const removeIngredientFromRecipe = (product_id, element_id) => {
   });
 }
 
-const editRecipe = (product_id, element_id, newQuantity) => {
+const editRecipeItem = (product_id, item_id, element) => {
   return new Promise((resolve, reject) => {
     Product.findById(product_id, (error, product) => {
       if(error || !product) reject(error);
       else {
-        let a = product.recipe.id(element_id);
-        resolve(a);
+        var item = product.recipe.id(item_id);
+        if(item){
+          item.quantity = element.quantity;
+          product.save((error, updatedProduct) => {
+            if(error) reject(error);
+            else resolve(updatedProduct);
+          });
+        } else {
+          reject(new Error('wrong'));
+        }
       }
     });
   });
@@ -140,5 +140,5 @@ module.exports = {
   deleteProduct,
   addIngredientToRecipe,
   removeIngredientFromRecipe,
-  editRecipe
+  editRecipeItem
 }

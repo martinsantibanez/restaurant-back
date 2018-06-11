@@ -75,7 +75,7 @@ export class ProductService {
   body: {id: product_id, quantity: #}
 */
 addIngredientToRecipe(product: Product, item: RecipeItem): Observable<any> {
-  return this.http.post(this.endPoint + product._id + '/recipe', {'id' : item.ingredient._id, 'quantity': item.quantity}, httpOptions)
+  return this.http.post(this.endPoint + product._id + '/recipe', item, httpOptions)
   .pipe(
     tap(_ => this.log('added ingredient to prod')),
     catchError(this.handleError('addIngredientToRecipe', []))
@@ -83,7 +83,7 @@ addIngredientToRecipe(product: Product, item: RecipeItem): Observable<any> {
 }
 /*
   remove ingredient from product's recipe.
-  DELETE: /products/:id/recipe/:ingredient_id
+  DELETE: /products/:id/recipe/:item_id
 */
 removeIngredientFromRecipe(product: Product, item: RecipeItem): Observable<any> {
   return this.http.delete(this.endPoint + product._id + '/recipe/' + item._id, httpOptions)
@@ -91,6 +91,17 @@ removeIngredientFromRecipe(product: Product, item: RecipeItem): Observable<any> 
    tap(_ => this.log('removed ingredient from prod')),
    catchError(this.handleError('removeIngredientFromRecipe', []))
  ); 
+}
+/*
+  edit a recipeitem
+  PUT: /products/:id/recipe/:item_id
+*/
+editRecipe(product: Product, item: RecipeItem): Observable<any> {
+  return this.http.put(this.endPoint + product._id + '/recipe/' + item._id, item, httpOptions)
+  .pipe(
+   tap(_ => this.log('edited ingredient from prod')),
+   catchError(this.handleError('editRecipe', []))
+ );  
 }
 
   

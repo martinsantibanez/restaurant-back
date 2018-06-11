@@ -5,7 +5,7 @@ const editProduct = require('./controller').editProduct;
 const deleteProduct = require('./controller').deleteProduct;
 const addIngredientToRecipe = require('./controller').addIngredientToRecipe;
 const removeIngredientFromRecipe = require('./controller').removeIngredientFromRecipe;
-const editRecipe = require('./controller').editRecipe;
+const editRecipeItem = require('./controller').editRecipeItem;
 
 const productAPI = (app) => {
   //get all products
@@ -50,23 +50,23 @@ const productAPI = (app) => {
       (error) => { res.status(400).send(error); }
     );
   });
-  //add an ingredient to a recipe. Body should be {id: product_id, quantity: # }
+  //add an ingredient to a recipe.
   app.post('/api/products/:id/recipe', (req, res) => {
-    addIngredientToRecipe(req.params.id, req.body.id, req.body.quantity).then(
+    addIngredientToRecipe(req.params.id, req.body).then(
       (result) => { res.send(result); },
       (error) => { res.status(400).send(error); }
     );
   });
   //remove an ingredient from a recipe
-  app.delete('/api/products/:id/recipe/:element_id', (req,res) => {
-    removeIngredientFromRecipe(req.params.id, req.params.element_id).then(
+  app.delete('/api/products/:id/recipe/:item_id', (req,res) => {
+    removeIngredientFromRecipe(req.params.id, req.params.item_id).then(
       (result) => { res.send(result); },
       (error) => { res.status(400).send(error); }
     );
   });
   //edit a recipe element
-  app.get('/api/products/:id/recipe/:element_id', (req,res) => {
-    editRecipe(req.params.id, req.params.element_id, 0).then(
+  app.put('/api/products/:id/recipe/:item_id', (req,res) => {
+    editRecipeItem(req.params.id, req.params.item_id, req.body).then(
       (result) => { res.send(result); },
       (error) => { res.status(400).send(error); }
     );

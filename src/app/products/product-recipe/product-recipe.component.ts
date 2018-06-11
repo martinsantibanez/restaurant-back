@@ -41,15 +41,15 @@ export class ProductRecipeComponent implements OnInit {
     }, data => {});
   }
 
-  // editIngredient(item: RecipeItem){
-  //   const modalRef = this.modalService.open(RecipeEditIngredientComponent);
-  //   modalRef.componentInstance.product = this.product;
-  //   modalRef.componentInstance.item = this.product;
-  //   modalRef.result.then(data => {
-  //     this.getProduct();
-  //   }, data => {});
+  editIngredient(item: RecipeItem){
+    const modalRef = this.modalService.open(RecipeEditIngredientComponent);
+    modalRef.componentInstance.product = this.product;
+    modalRef.componentInstance.recipeItem = item;
+    modalRef.result.then(data => {
+      this.getProduct();
+    }, data => {});
 
-  // }
+  }
 
   removeIngredient(item: RecipeItem){
     const modalRef = this.modalService.open(RecipeRemoveIngredientComponent);
