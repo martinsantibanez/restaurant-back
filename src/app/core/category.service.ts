@@ -70,6 +70,9 @@ export class CategoryService {
       );
   }
 
+  // addProduct(product: Product): Observable<any> {
+    
+  // }
   
   /**
      * Handle Http operation that failed.

@@ -16,12 +16,10 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'mean';
 
 //Mongoose
-// mongoose.connect(url + '/' + dbName);
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(url + '/' + dbName);
 
 const connection = (closure) => {
-    // return MongoClient.connect(url, (err, client) => {
-    return MongoClient.connect(process.env.MONGODB_URI, (err, client) => {
+    return MongoClient.connect(url, (err, client) => {
         assert.equal(null, err);
         console.log("Conectado.");
         const db = client.db(dbName);
@@ -91,6 +89,15 @@ router.get('/categories/:id', (req,res,next) => {
         if(err) return next(err);
         res.json(cat);
     });
+});
+
+router.get('/categories/:id/products', (req, res, next) => {
+    Category.findById(req.params.id).
+    populate('products').
+    exec((err, cat) => {
+        if(err) return next(err);
+        res.json(cat.products);
+    })
 });
 
 router.put('/categories/:id', function(req, res, next) {

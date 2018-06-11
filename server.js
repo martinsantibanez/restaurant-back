@@ -1,31 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+// modules for server
 const path = require('path');
-const http = require('http');
+const express = require('express');
+const mongoose = require('mongoose');
+const serverConfigs = require('./config/serverConfig');
+
+mongoose.connect(serverConfigs.DBURL);
+console.log("DB: "+mongoose.connection.readyState);
+
 const app = express();
 
-// API file for interacting with MongoDB
-const api = require('./server/routes/api');
+require('./server/express')(app, serverConfigs);
 
-// Parsers
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
-
-// Angular DIST output folder
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// API location
-app.use('/api', api);
-
-// Send all other requests to the Angular app
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+// fire up the server
+app.listen(serverConfigs.PORT, (error) => {
+  if (error) throw error;
+  console.log('Server running on port: ' + serverConfigs.PORT);
 });
-
-//Set Port
-const port = process.env.PORT || '3000';
-app.set('port', port);
-
-const server = http.createServer(app);
-
-server.listen(port, () => console.log(`Running on localhost:${port}`));

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Product = require('./Product.js');
-var ProductSchema = mongoose.model('Product').schema;
+// var Product = require('./Product.js');
+// var ProductSchema = mongoose.model('Product').schema;
 
 var categorySchema = Schema({
     name: String,
@@ -9,6 +9,4 @@ var categorySchema = Schema({
     products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 });
 
-var Category = mongoose.model('Category', categorySchema);
-
-module.exports = Category;
+module.exports = mongoose.model('Category', categorySchema);
