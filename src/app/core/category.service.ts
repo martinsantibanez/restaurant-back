@@ -9,6 +9,7 @@ import { of } from 'rxjs/observable/of';
 import { MessageService } from './message.service';
 
 import { Category } from './category.model';
+import { Product } from './product.model';
 
 import { ApiConfig } from './api.config'
 
@@ -70,9 +71,27 @@ export class CategoryService {
       );
   }
 
-  // addProduct(product: Product): Observable<any> {
-    
-  // }
+  /*
+    GET: /categories/:id/products
+  */
+  getProductsFromCategory(id: string): Observable <Product[]> {
+    return this.http.get<Product[]>(this.endPoint + id + '/products', httpOptions).pipe(
+      tap (products => this.log('fetched products from '+id)),
+      catchError(this.handleError('getProductsFromCategory', []))
+    );
+  }
+  /**
+    add product to category's products.
+    POST: /categories/:id/products
+    body: {id: product_id}
+  */
+  addProductToCategory(category: Category, product: Product): Observable<any> {
+    return this.http.post(this.endPoint + category._id + '/products', {'id' : product._id}, httpOptions)
+    .pipe(
+      tap(_ => this.log('added product to cat')),
+      catchError(this.handleError('addProductToCategory', []))
+    );
+  }
   
   /**
      * Handle Http operation that failed.

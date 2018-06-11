@@ -20,7 +20,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./category-add-product.component.css']
 })
 export class CategoryAddProductComponent implements OnInit {
-  @Input() category: Category;
+  @Input() categoryId: string;
   selectedProduct: Product;
   products: Product[];
   //Typeahead

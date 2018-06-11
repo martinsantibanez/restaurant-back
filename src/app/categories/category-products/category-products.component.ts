@@ -48,7 +48,7 @@ export class CategoryProductsComponent implements OnInit {
     modalRef.componentInstance.category = this.category;
     modalRef.result.then(data => {
       this.category.products.push(data);
-      this.categoryService.updateCategory(this.category).subscribe(
+      this.categoryService.addProductToCategory(this.category, data).subscribe(
         () => this.getCategory()
       );
     }, data => {});
