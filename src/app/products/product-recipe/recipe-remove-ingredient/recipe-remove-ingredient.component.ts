@@ -18,10 +18,9 @@ export class RecipeRemoveIngredientComponent implements OnInit {
 
   }
   delete(){
-    this.product.recipe = this.product.recipe.filter(i => i !== this.item);
-    this.productService.updateProduct(this.product).subscribe(
-      () => this.activeModal.close("Updated")
-      )
+    this.productService.removeIngredientFromRecipe(this.product, this.item).subscribe(
+      () => this.activeModal.close("Removed")
+    );
   }
 
 }

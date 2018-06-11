@@ -18,8 +18,7 @@ export class CategoryRemoveProductComponent implements OnInit {
   }
 
   delete(){
-    this.category.products = this.category.products.filter(i => i !== this.product);
-    this.categoryService.updateCategory(this.category)
+    this.categoryService.removeProductFromCategory(this.category, this.product)
     .subscribe( () => this.activeModal.close("Deleted"));
   }
 

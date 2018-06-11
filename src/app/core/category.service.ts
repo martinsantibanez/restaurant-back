@@ -92,6 +92,17 @@ export class CategoryService {
       catchError(this.handleError('addProductToCategory', []))
     );
   }
+  /*
+    remove product from category's products.
+    DELETE: /categories/:id/products/:product_id
+  */
+  removeProductFromCategory(category: Category, product: Product): Observable<any> {
+    return this.http.delete(this.endPoint + category._id + '/products/' + product._id, httpOptions)
+    .pipe(
+      tap(_ => this.log('removed product from cat')),
+      catchError(this.handleError('removeProductFromCategory', []))
+    );
+  }
   
   /**
      * Handle Http operation that failed.

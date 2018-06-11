@@ -81,6 +81,17 @@ addIngredientToRecipe(product: Product, item: RecipeItem): Observable<any> {
     catchError(this.handleError('addIngredientToRecipe', []))
   );
 }
+/*
+  remove ingredient from product's recipe.
+  DELETE: /products/:id/recipe/:ingredient_id
+*/
+removeIngredientFromRecipe(product: Product, item: RecipeItem): Observable<any> {
+  return this.http.delete(this.endPoint + product._id + '/recipe/' + item._id, httpOptions)
+ .pipe(
+   tap(_ => this.log('removed ingredient from prod')),
+   catchError(this.handleError('removeIngredientFromRecipe', []))
+ ); 
+}
 
   
   /**

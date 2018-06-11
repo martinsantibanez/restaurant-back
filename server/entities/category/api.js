@@ -4,6 +4,7 @@ const createCategory = require('./controller').createCategory;
 const editCategory = require('./controller').editCategory;
 const deleteCategory = require('./controller').deleteCategory;
 const addProductToCategory = require('./controller').addProductToCategory;
+const removeProductFromCategory = require('./controller').removeProductFromCategory;
 const categoryAPI = (app) => {
   //get all categories
   app.get('/api/categories', (req, res) => {
@@ -50,6 +51,13 @@ const categoryAPI = (app) => {
   //add a product to category. Body should be {id: product_id}
   app.post('/api/categories/:id/products', (req, res) => {
     addProductToCategory(req.params.id, req.body.id).then(
+      (result) => { res.send(result); },
+      (error) => { res.status(400).send(error); }
+    );
+  });
+  //remove a product from category.
+  app.delete('/api/categories/:id/products/:product_id', (req, res) => {
+    removeProductFromCategory(req.params.id, req.params.product_id).then(
       (result) => { res.send(result); },
       (error) => { res.status(400).send(error); }
     );

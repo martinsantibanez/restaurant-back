@@ -80,7 +80,7 @@ const addIngredientToRecipe = (product_id, ingredient_id, quantity) => {
           if(error || !ingredient) reject(error)
           else {
             //check that it's not already in the product
-            let match = false
+            let match = false;
             for(let i = 0 ; i < product.recipe.length ; i++)
               if(String(product.recipe[i].ingredient) == String(ingredient)) match = true;
             if(!match){
@@ -98,6 +98,39 @@ const addIngredientToRecipe = (product_id, ingredient_id, quantity) => {
   })
 }
 
+const removeIngredientFromRecipe = (product_id, element_id) => {
+  return new Promise((resolve, reject) => {
+    Product.findById(product_id, (error, product) => {
+      if(error || !product) reject(error);
+      else {
+        var item = product.recipe.id(element_id);
+        if(item){
+          item.remove();
+          product.save((error, updatedProduct) => {
+            if(error) reject(error);
+            else resolve(updatedProduct)
+          });
+        } else {
+          reject(new Error('wrong'));
+        }
+      
+      }
+    });
+  });
+}
+
+const editRecipe = (product_id, element_id, newQuantity) => {
+  return new Promise((resolve, reject) => {
+    Product.findById(product_id, (error, product) => {
+      if(error || !product) reject(error);
+      else {
+        let a = product.recipe.id(element_id);
+        resolve(a);
+      }
+    });
+  });
+}
+
 
 module.exports = {
   getAllProducts,
@@ -105,5 +138,7 @@ module.exports = {
   createProduct,
   editProduct,
   deleteProduct,
-  addIngredientToRecipe
+  addIngredientToRecipe,
+  removeIngredientFromRecipe,
+  editRecipe
 }

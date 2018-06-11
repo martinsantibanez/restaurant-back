@@ -50,37 +50,6 @@ const createCategory = (category) => {
   });
 }
 
-const addProductToCategory = (category_id, product_id) => {
-  console.log(product_id);
-  return new Promise((resolve, reject) => {
-    Category.findById(category_id, (error, category) => {
-      if(error) reject(error); 
-      else if(!category) reject(error);
-      else {
-        Product.findById(product_id, (error, product) => {
-          if(error) reject(error);
-          else if(!product){ console.log("nopo"); reject(error); }
-          else {
-            //check that it's not already in the category
-            let match = false;
-            for(let i = 0 ; i < category.products.length ; i++)
-              if(category.products[i] == product_id)
-                match = true;
-            //if it's not, add it
-            if(!match){
-              category.products.push(product);
-              category.save((error, updatedCategory) => {
-                if(error) reject(error);
-                else{ resolve(updatedCategory); }
-              });
-            } else reject(new Error("Already exists"));
-          }
-        });
-      }
-    });
-  });
-}
-
 const editCategory = (category_id, category) => {
   return new Promise((resolve, reject) => {
     Category
@@ -101,12 +70,62 @@ const deleteCategory = (category_id) => {
   });
 }
 
+const addProductToCategory = (category_id, product_id) => {
+  console.log(product_id);
+  return new Promise((resolve, reject) => {
+    Category.findById(category_id, (error, category) => {
+      if(error || !category) reject(error); 
+      else
+        Product.findById(product_id, (error, product) => {
+          if(error || !product) reject(error);
+          else {
+            //check that it's not already in the category
+            let match = false;
+            for(let i = 0 ; i < category.products.length ; i++)
+              if(category.products[i] == product_id) match = true;
+            //if it's not, add it
+            if(!match){
+              category.products.push(product);
+              category.save((error, updatedCategory) => {
+                if(error) reject(error);
+                else resolve(updatedCategory); 
+              });
+            } else reject(new Error("Already exists"));
+          }
+        });
+
+    });
+  });
+}
+const removeProductFromCategory = (category_id, product_id) => {
+  return new Promise((resolve, reject) => {
+    Category
+    .findById(category_id, (error, category) => {
+      if(error || !category) reject(error);
+      else{
+        //check that it IS in the category
+        let match = null;
+        for(let i=0 ; i < category.products.length ; i++)
+          if(category.products[i] == product_id) match = i;
+        if(match != null){
+          category.products.splice(match, 1);
+          category.save((error, updatedCategory) => {
+            if(error) reject(error);
+            else resolve(updatedCategory);
+          });
+        } else reject(new Error('Not in list'));
+      }
+
+    });
+  });
+}
 module.exports = {
   getAllCategories,
   getCategory,
   createCategory,
   editCategory,
   deleteCategory,
-  addProductToCategory
+  addProductToCategory,
+  removeProductFromCategory
 };
 
