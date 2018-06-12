@@ -24,9 +24,9 @@ const routesConfig = (app) => {
 
   // apply apis
   // categoryAPI(app);
-  app.use('/api', productAPI);
-  app.use('/api', categoryAPI);
-  app.use('/api', ingredientAPI);
+  app.use('/api/admin', productAPI);
+  app.use('/api/admin', categoryAPI);
+  app.use('/api/admin', ingredientAPI);
   app.use('/api', userAPI);
 
   // all get request will send index.html for react-router
