@@ -10,6 +10,9 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const cors = require('cors');
+const passport = require('passport');
+const flash = require('connect-flash');
+
 /**
  * express configuration
  */
@@ -39,6 +42,16 @@ const expressConfig = (app, serverConfigs) => {
     }),
   }));
 
+  // connect flash for flash messages (should be declared after sessions)
+  app.use(flash());
+
+  //passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // apply passport configs
+  require('./passport')(app);
+  
   //cors
   app.use(cors());
 

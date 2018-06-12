@@ -49,7 +49,11 @@ const createCategory = (category) => {
     });
   });
 }
-
+/**
+ * 
+ * @param {string} category_id 
+ * @param {Category} category 
+ */
 const editCategory = (category_id, category) => {
   return new Promise((resolve, reject) => {
     Category
@@ -60,6 +64,10 @@ const editCategory = (category_id, category) => {
   });
 }
 
+/**
+ * deletes a category
+ * @param {string} category_id 
+ */
 const deleteCategory = (category_id) => {
   return new Promise((resolve, reject) => {
     Category
