@@ -23,10 +23,11 @@ const routesConfig = (app) => {
 
 
   // apply apis
-  categoryAPI(app);
-  productAPI(app);
-  ingredientAPI(app);
-  userAPI(app);
+  // categoryAPI(app);
+  app.use('/api', productAPI);
+  app.use('/api', categoryAPI);
+  app.use('/api', ingredientAPI);
+  app.use('/api', userAPI);
 
   // all get request will send index.html for react-router
   // to handle the route request

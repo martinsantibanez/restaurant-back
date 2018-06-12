@@ -1,16 +1,18 @@
 const passport = require('passport');
-const userAPI = (app) => {
-    app.post('/api/login', passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
 
-    app.post('/api/signup', passport.authenticate('signup', {
-        successRedirect: '/',
-        failureRedirect: '/signup',
-        failureFlash: true
-    }));
-};
+const express = require('express');
+const router = express.Router();
 
-module.exports = userAPI;
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
+router.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/',
+    failureRedirect: '/signup',
+    failureFlash: true
+}));
+
+module.exports = router;
