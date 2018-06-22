@@ -1,5 +1,6 @@
 # REST Resto
-Sistema para gestión de restaurant realizado usando MEAN stack.
+Backend de sistema para gestión de restaurant.
+Node + Express + Mongoose
 
 ## Links útiles
 *Utilizados o por utilizar durante el proceso de desarrollo (los más importantes, además de mucho StackOverflow y google)*

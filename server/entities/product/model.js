@@ -17,6 +17,9 @@ var productSchema = Schema({
       }
     ]
 });
-
+productSchema.pre('findOneAndUpdate', function(next) {
+  this.options.runValidators = true;
+  next();
+});
 
 module.exports = mongoose.model('Product', productSchema);

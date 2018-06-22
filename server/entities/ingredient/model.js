@@ -9,7 +9,10 @@ var ingredientSchema = Schema({
     stock: Number,
     unit: String
 });
-
+ingredientSchema.pre('findOneAndUpdate', function(next) {
+  this.options.runValidators = true;
+  next();
+});
 var Ingredient = mongoose.model('Ingredient', ingredientSchema);
 
 module.exports = Ingredient;

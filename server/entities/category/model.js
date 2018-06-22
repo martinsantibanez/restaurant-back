@@ -11,5 +11,9 @@ var categorySchema = Schema({
     show: Boolean,
     products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 });
+categorySchema.pre('findOneAndUpdate', function(next) {
+  this.options.runValidators = true;
+  next();
+});
 
 module.exports = mongoose.model('Category', categorySchema);
