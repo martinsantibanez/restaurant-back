@@ -6,10 +6,10 @@ const deleteIngredient = require('./controller').deleteIngredient;
 
 const express = require('express');
 const router = express.Router();
-
+const passport = require('passport');
 
 //get all products
-router.get('/ingredients', (req, res) => {
+router.get('/ingredients', passport.authenticate('jwt', {session: false}), (req, res) => {
   getAllIngredients().then(
     (result) => { res.send(result); },
     (error) => { res.status(500).send(error); }

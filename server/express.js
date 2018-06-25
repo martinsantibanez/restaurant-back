@@ -35,7 +35,7 @@ const expressConfig = (app, serverConfigs) => {
   app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: 'secret',
+    secret: '@3LKJjWzz3=$22Dm',
     store: new mongoStore({
       url: serverConfigs.DBURL,
       collection : 'sessions',

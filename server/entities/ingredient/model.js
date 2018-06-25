@@ -7,6 +7,7 @@ var ingredientSchema = Schema({
       required: [true, 'Name is required']
     },
     stock: Number,
+    //TODO: unit as schema
     unit: String
 });
 ingredientSchema.pre('findOneAndUpdate', function(next) {
