@@ -13,6 +13,8 @@ const serverConfig = require('../config/serverConfig');
 const getUser = require('./entities/user/controller').getUser;
 const authenticateUser = require('./entities/user/controller').authenticateUser;
 const registerUser = require('./entities/user/controller').registerUser;
+
+const user = require('./permission');
 /**
  * passport configuration
  */
@@ -44,6 +46,17 @@ const passportConfig = (app) => {
   }, (token, done) => {
     return done(null, token.user);
   }));
+
+   //permissions
+  user.use('edit', function (req) {
+    if (req.user.role === 'admin') {
+      return true;
+    }
+  });
+  
+  app.use(user.middleware());
+
+
 };
 
 module.exports = passportConfig;

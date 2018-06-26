@@ -7,9 +7,12 @@ const deleteIngredient = require('./controller').deleteIngredient;
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const user = require('../../permission');
+
+router.use(passport.authenticate('jwt', {session: false}));
 
 //get all products
-router.get('/ingredients', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.get('/ingredients', user.can('edit'), (req, res) => {
   getAllIngredients().then(
     (result) => { res.send(result); },
     (error) => { res.status(500).send(error); }

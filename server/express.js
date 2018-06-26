@@ -12,7 +12,7 @@ const mongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 const passport = require('passport');
 const flash = require('connect-flash');
-
+const user = require('./permission');
 /**
  * express configuration
  */
@@ -44,14 +44,14 @@ const expressConfig = (app, serverConfigs) => {
 
   // connect flash for flash messages (should be declared after sessions)
   app.use(flash());
-
+ 
   //passport
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // apply passport configs
+   // apply passport configs
   require('./passport')(app);
-  
+ 
   //cors
   app.use(cors());
 

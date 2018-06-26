@@ -11,6 +11,7 @@ var userSchema = Schema({
         type: String,
         required: true,
     },
+    role: String,
     firstName: String,
     lastName: String
 });

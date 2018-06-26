@@ -6,11 +6,15 @@ const deleteCategory = require('./controller').deleteCategory;
 const addProductToCategory = require('./controller').addProductToCategory;
 const removeProductFromCategory = require('./controller').removeProductFromCategory;
 
+const passport = require('passport');
 const express = require('express');
 const router = express.Router();
+const user = require('../../permission');
+
+router.use(passport.authenticate('jwt', {session: false}));
 
 //get all categories
-router.get('/categories', (req, res) => {
+router.get('/categories', user.can('edit'), (req, res) => {
   getAllCategories().then(
     (result) => { res.send(result); },
     (error) => { res.status(500).send(error); }
