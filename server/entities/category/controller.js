@@ -90,11 +90,7 @@ const addProductToCategory = (category_id, product_id) => {
         Product.findById(product_id, (error, product) => {
           if(error || !product) reject(error);
           else {
-            //check that it's not already in the category
-            let match = false;
-            for(let i = 0 ; i < category.products.length ; i++)
-              if(category.products[i] == product_id) match = true;
-            //if it's not, add it
+            var match = category.products.find(e => e._id.equals(product._id));
             if(!match){
               category.products.push(product);
               category.save((error, updatedCategory) => {
