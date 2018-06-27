@@ -7,7 +7,8 @@ const categoryAPI = require('./entities/category/api');
 const ingredientAPI = require('./entities/ingredient/api');
 const productAPI = require('./entities/product/api');
 const userAPI = require('./entities/user/api');
-const passport = require('passport');
+const authAPI = require('./entities/auth/api');
+
 /**
  * routes configurations
  */
@@ -24,6 +25,7 @@ const routesConfig = (app) => {
 
   // apply apis
   // categoryAPI(app);
+  app.use('/api', authAPI);
   app.use('/api', userAPI);
   app.use('/api', productAPI);
   app.use('/api', categoryAPI);

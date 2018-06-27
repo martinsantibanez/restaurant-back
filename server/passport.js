@@ -10,9 +10,9 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 const serverConfig = require('../config/serverConfig');
 // controllers
-const getUser = require('./entities/user/controller').getUser;
-const authenticateUser = require('./entities/user/controller').authenticateUser;
-const registerUser = require('./entities/user/controller').registerUser;
+const getUser = require('./entities/auth/controller').getUser;
+const authenticateUser = require('./entities/auth/controller').authenticateUser;
+// const registerUser = require('./entities/user/controller').registerUser;
 
 const user = require('./permission');
 /**
@@ -33,10 +33,10 @@ const passportConfig = (app) => {
     {usernameField: 'email',},
     authenticateUser
   ));
-  passport.use('signup', new LocalStrategy(
-    {usernameField: 'email', passReqToCallback: true},
+  /*passport.use('signup', new LocalStrategy(
+    { usernameField: 'email', passReqToCallback: true },
     registerUser
-  ));
+  ));*/
   
   passport.use(new JWTstrategy({
     //secret we used to sign our JWT

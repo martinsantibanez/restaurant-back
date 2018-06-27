@@ -1,45 +1,22 @@
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
-const serverConfig = require('../../../config/serverConfig');
+const addUser = require('./controller').addUser;
+const getAllUsers = require('./controller').getAllUsers;
+const user = require('../../permission');
+const passport = require('passport');
+router.use(passport.authenticate('jwt', {session: false}));
 
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    try {
-      if(err || !user){
-        const error = new Error('An Error occured')
-        return next(error);
-      }
-      req.login(user, { session : false }, (error) => {
-        if( error ) return next(error)
-        //We don't want to store the sensitive information such as the
-        //user password in the token so we pick only the email and id
-        const body = { _id : user._id, email : user.email, role: user.role };
-        //Sign the JWT token and populate the payload with the user email and id
-        const token = jwt.sign({ user : body }, serverConfig.SECRET);
-        //Send back the token to the user
-        return res.json({ token });
-      });   
-    } catch (error) {
-      return next(error);
-    }
-  })(req, res, next);
-});
+router.get('/users', (req, res) => {
+  getAllUsers().then(
+    (result) => { res.send(result); },
+    (error) => { res.status(500).send(error); }
+  );
+})
 
-router.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
-
-router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-  //We'll just send back the user details and the token
-  res.json({
-    message : 'You made it to the secure route',
-    user : req.user,
-    token : req.query.secret_token
-  });
+router.post('/users', user.is('admin'), (req, res) => {
+  addUser(req.body).then(
+    (result) => { res.send(Object.assign({}, result._doc, { created: true })); },
+    (error) => { res.status(400).send({ created: false }); }  )
 });
 
 module.exports = router;

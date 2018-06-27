@@ -1,22 +1,6 @@
-const _ = require('lodash');
-const asyncEach = require('async/each');
 const bCrypt = require('bcrypt-nodejs');
 const User = require('./model');
-
-const authenticateUser = (email, password, done) => {
-    User.findOne({ email: email }, function(err, user) {
-        if (err) { return done(err); }
-        if (!user) {
-          return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (!_validPassword(user, password)) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
-    });
-};
-
-const registerUser = (req, email, password, done) => {
+const addUser = (req, email, password, done) => {
   // find a user in Mongo with provided username
   User.findOne({'email':email}, function(err, user) {
     // In case of any error return
@@ -52,28 +36,24 @@ const registerUser = (req, email, password, done) => {
   });
 }
 
-const getUser = (id) => {
+const getAllUsers = (req, res) => {
   return new Promise((resolve, reject) => {
-    User.
-    findById(id, (err, res) => {
-      if(err) reject(err);
-      else {
-        resolve(res);
-      }
-    });
-  });
+    User
+    .find()
+    .lean()
+    .exec((error, result) => {
+      if (error) { console.log(error); reject(error); }
+      else if (!result) { console.log("nulo"); reject(null); }
+      else { resolve(result); }
+    })
+  })
 }
-
-const _validPassword = (user, password) => {
-  return bCrypt.compareSync(password, user.password);
-};
 
 const _createHash = function(password){
   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 }
 
 module.exports = {
-  authenticateUser,
-  registerUser,
-  getUser
-};
+  addUser,
+  getAllUsers
+}
