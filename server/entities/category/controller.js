@@ -81,7 +81,10 @@ const deleteCategory = (category_id) => {
 const addProductToCategory = (category_id, product_id) => {
   console.log(product_id);
   return new Promise((resolve, reject) => {
-    Category.findById(category_id, (error, category) => {
+    Category.
+    findById(category_id)
+    .populate('products')
+    .exec((error, category) => {
       if(error || !category) reject(error); 
       else
         Product.findById(product_id, (error, product) => {
@@ -108,13 +111,15 @@ const addProductToCategory = (category_id, product_id) => {
 const removeProductFromCategory = (category_id, product_id) => {
   return new Promise((resolve, reject) => {
     Category
-    .findById(category_id, (error, category) => {
+    .findById(category_id)
+    .populate('products')
+    .exec((error, category) => {
       if(error || !category) reject(error);
       else{
         //check that it IS in the category
         let match = null;
         for(let i=0 ; i < category.products.length ; i++)
-          if(category.products[i] == product_id) match = i;
+          if(category.products[i]._id == product_id) match = i;
         if(match != null){
           category.products.splice(match, 1);
           category.save((error, updatedCategory) => {
@@ -123,7 +128,6 @@ const removeProductFromCategory = (category_id, product_id) => {
           });
         } else reject(new Error('Not in list'));
       }
-
     });
   });
 }
