@@ -71,28 +71,42 @@ const deleteProduct = (product_id) => {
   });
 }
 
+/**
+ * 
+ * @param {id} product_id 
+ * @param {ingredient: id, quantity: number} element 
+ */
 const addIngredientToRecipe = (product_id, element) => {
   return new Promise((resolve, reject) => {
-    Product.findById(product_id, (error, product) => {
+    Product.findById(product_id)
+    .populate('recipe.ingredient')
+    .exec((error, product) => {
       if(error || !product) reject(error); 
-      else{
-        //check that it's not already in the product
-        var match = product.recipe.id(element._id);
-        if(!match){
-          product.recipe.push(element);
-          product.save((error, updatedProduct) => {
-            if(error) reject(error);
-            else resolve(updatedProduct);
-          });
-        } else reject(new Error("Already exists"));
-      }
+      else
+        Ingredient.findById(element.ingredient, (error, ingredient) => {
+          if(error || !ingredient) reject(error);
+          else {
+            //check that it's not already in the product
+            var match = product.recipe.find(e => e.ingredient._id.equals(ingredient._id) );
+            if(!match){
+              product.recipe.push({ingredient: ingredient, quantity: element.quantity});
+              product.save((error, updatedProduct) => {
+                if(error) reject(error);
+                else resolve(updatedProduct);
+              });
+            } else reject(new Error("Already exists")); 
+          }
+        });
+      
     })
   })
 }
 
 const removeIngredientFromRecipe = (product_id, item_id) => {
   return new Promise((resolve, reject) => {
-    Product.findById(product_id, (error, product) => {
+    Product.findById(product_id)
+    .populate('recipe.ingredient')
+    .exec((error, product) => {
       if(error || !product) reject(error);
       else {
         var item = product.recipe.id(item_id);
