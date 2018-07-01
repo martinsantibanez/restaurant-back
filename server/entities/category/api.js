@@ -59,7 +59,15 @@ router.get('/categories/:id/products', (req, res) => {
 router.post('/categories/:id/products', (req, res) => {
   addProductToCategory(req.params.id, req.body.id).then(
     (result) => { res.send(result); },
-    (error) => { res.status(400).send(error); }
+    (error) => { 
+      //TODO do this elsewhere
+      console.log(error);
+      if(error.httpStatusCode)
+        res.status(error.httpStatusCode);
+      else
+        res.status(500);
+      res.send(error); 
+    }
   );
 });
 //remove a product from category.

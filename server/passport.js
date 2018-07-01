@@ -47,12 +47,7 @@ const passportConfig = (app) => {
     return done(null, token.user);
   }));
 
-   //permissions
-  user.use('edit', function (req) {
-    if (req.user.role === 'admin') {
-      return true;
-    }
-  });
+ 
   
   app.use(user.middleware());
 

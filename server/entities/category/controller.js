@@ -97,7 +97,12 @@ const addProductToCategory = (category_id, product_id) => {
                 if(error) reject(error);
                 else resolve(updatedCategory); 
               });
-            } else reject(new Error("Already exists"));
+            } else {
+              //TODO middleware for error handling
+              const mierr = new Error("Already exists");
+              mierr.httpStatusCode = 409;
+              reject(mierr);
+            } 
           }
         });
 
