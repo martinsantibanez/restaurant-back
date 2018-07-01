@@ -43,7 +43,7 @@ router.put('/ingredients/:id', (req, res) => {
 router.delete('/ingredients/:id', (req, res) => {
   deleteIngredient(req.params.id, req.body).then(
     (result) => { res.send(result); },
-    (error) => { res.status(400).send(error)}
+    (error) => { res.status(400).send(error) }
   );
 });
 

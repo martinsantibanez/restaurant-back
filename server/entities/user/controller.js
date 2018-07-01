@@ -38,7 +38,37 @@ const createUser = (user) => {
       }
     });
   });
-  
+}
+
+const getUser = (id) => {
+  return new Promise((resolve, reject) => {
+    User.
+    findById(id)
+    .select('email firstName lastName role')
+    .exec((err, res) => {
+      if(err) reject(err);
+      else {
+
+        resolve(res);
+      }
+    });
+  });
+}
+const editUser = (user_id, editedUser) => {
+  return new Promise((resolve, reject) => {
+    User.findById(user_id, (error, user) => {
+      if(error || !user) reject(error);
+        user.email = editedUser.email;
+        // user.password = _createHash(editedUser.password);
+        user.firstName = editedUser.firstName;
+        user.lastName = editedUser.lastName;
+        user.role = editedUser.role;
+        user.save((error, updatedUser) => {
+          if(error) reject(error);
+          else resolve(updatedUser);
+        });
+    });
+  });
 }
 
 const getAllUsers = (req, res) => {
@@ -60,5 +90,7 @@ const _createHash = function(password){
 
 module.exports = {
   createUser,
-  getAllUsers
+  getAllUsers,
+  editUser,
+  getUser
 }

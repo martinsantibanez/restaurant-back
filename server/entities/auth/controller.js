@@ -15,24 +15,11 @@ const authenticateUser = (email, password, done) => {
     });
 };
 
-const getUser = (id) => {
-  return new Promise((resolve, reject) => {
-    User.
-    findById(id, (err, res) => {
-      if(err) reject(err);
-      else {
-        resolve(res);
-      }
-    });
-  });
-}
-
 const _validPassword = (user, password) => {
   return bCrypt.compareSync(password, user.password);
 };
 
 
 module.exports = {
-  authenticateUser,
-  getUser
+  authenticateUser
 };

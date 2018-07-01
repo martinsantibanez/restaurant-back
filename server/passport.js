@@ -10,7 +10,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 const serverConfig = require('../config/serverConfig');
 // controllers
-const getUser = require('./entities/auth/controller').getUser;
+const getUser = require('./entities/user/controller').getUser;
 const authenticateUser = require('./entities/auth/controller').authenticateUser;
 // const registerUser = require('./entities/user/controller').registerUser;
 
