@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-// var Ingredient = require('./Ingredient.js');
-
 
 var productSchema = Schema({
     name: {

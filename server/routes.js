@@ -8,6 +8,7 @@ const ingredientAPI = require('./entities/ingredient/api');
 const productAPI = require('./entities/product/api');
 const userAPI = require('./entities/user/api');
 const authAPI = require('./entities/auth/api');
+const tableAPI = require('./entities/table/api');
 
 /**
  * routes configurations
@@ -30,6 +31,7 @@ const routesConfig = (app) => {
   app.use('/api', productAPI);
   app.use('/api', categoryAPI);
   app.use('/api', ingredientAPI);
+  app.use('/api', tableAPI);
 
   // all get request will send index.html for react-router
   // to handle the route request

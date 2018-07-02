@@ -4,6 +4,7 @@ const createUser = require('./controller').createUser;
 const getUser = require('./controller').getUser;
 const getAllUsers = require('./controller').getAllUsers;
 const editUser = require('./controller').editUser;
+const deleteUser = require('./controller').deleteUser;
 const user = require('../../permission');
 const passport = require('passport');
 
@@ -31,6 +32,13 @@ router.get('/users/:id', (req, res) => {
 
 router.put('/users/:id', user.is('admin'), (req, res) => {
   editUser(req.params.id, req.body).then(
+    (result) => res.send(result),
+    (error) => res.status(400).send(error)
+  );
+});
+
+router.delete('/users/:id', user.is('admin'), (req, res) => {
+  deleteUser(req.params.id).then(
     (result) => res.send(result),
     (error) => res.status(400).send(error)
   );

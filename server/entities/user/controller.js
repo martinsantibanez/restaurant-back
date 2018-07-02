@@ -22,8 +22,7 @@ const createUser = (user) => {
         // set the user's local credentials
         newUser.email = user.email;
         newUser.password = _createHash(user.password);
-        newUser.firstName = user.firstName;
-        newUser.lastName = user.lastName;
+        newUser.name = user.name;
         newUser.role = user.role;
 
         // save the user
@@ -44,7 +43,7 @@ const getUser = (id) => {
   return new Promise((resolve, reject) => {
     User.
     findById(id)
-    .select('email firstName lastName role')
+    .select('-password')
     .exec((err, res) => {
       if(err) reject(err);
       else {
@@ -56,12 +55,13 @@ const getUser = (id) => {
 }
 const editUser = (user_id, editedUser) => {
   return new Promise((resolve, reject) => {
-    User.findById(user_id, (error, user) => {
+    User.findById(user_id)
+    .select('-password') //TODO PASSWORD CHANGE ENDPOINT
+    .exec((error, user) => {
       if(error || !user) reject(error);
         user.email = editedUser.email;
-        // user.password = _createHash(editedUser.password);
-        user.firstName = editedUser.firstName;
-        user.lastName = editedUser.lastName;
+        // user.password = _createHash(editedUser.password); TODO
+        user.name = editedUser.name;
         user.role = editedUser.role;
         user.save((error, updatedUser) => {
           if(error) reject(error);
@@ -71,10 +71,12 @@ const editUser = (user_id, editedUser) => {
   });
 }
 
-const getAllUsers = (req, res) => {
+const getAllUsers = () => {
   return new Promise((resolve, reject) => {
     User
     .find()
+    .select('-password')
+    .populate('tables')
     .lean()
     .exec((error, result) => {
       if (error) { console.log(error); reject(error); }
@@ -82,6 +84,15 @@ const getAllUsers = (req, res) => {
       else { resolve(result); }
     })
   })
+}
+
+const deleteUser = (user_id) => {
+  return new Promise((resolve, reject) => {
+    User.findByIdAndRemove(user_id, (error, result) => {
+      if(error) reject(error);
+      else resolve(result);
+    })
+  });
 }
 
 const _createHash = function(password){
@@ -92,5 +103,6 @@ module.exports = {
   createUser,
   getAllUsers,
   editUser,
-  getUser
+  getUser,
+  deleteUser,
 }

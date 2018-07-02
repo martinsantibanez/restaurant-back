@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-// var Product = require('./Product.js');
-// var ProductSchema = mongoose.model('Product').schema;
 
 var categorySchema = Schema({
     name: {
@@ -11,6 +9,9 @@ var categorySchema = Schema({
     show: Boolean,
     products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
 });
+
+//TODO: products virtual
+
 categorySchema.pre('findOneAndUpdate', function(next) {
   this.options.runValidators = true;
   next();
