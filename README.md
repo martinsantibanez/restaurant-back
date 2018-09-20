@@ -1,7 +1,14 @@
 # RESTaurant [backend]
 Backend for RESTaurant management system.
-Node + Express + Mongoose
+
 Frontend in [mertinop/restaurant-front](https://github.com/mertinop/restaurant-front)
+
+## Stack
+- Express 
+- Mongoose (MongoDB)
+- Passport
+- connect-roles
+
 ## Useful links
 *Used or to use during the development*
 

@@ -15,7 +15,7 @@ router.post('/login', (req, res, next) => {
         if( error ) return next(error)
         //We don't want to store the sensitive information such as the
         //user password in the token so we pick only the email and id
-        const body = { _id : user._id, email : user.email, role: user.role, name: user.name };
+        const body = { _id : user._id };
         //Sign the JWT token and populate the payload with the user email and id
         const token = jwt.sign({ user : body }, serverConfig.SECRET);
         //Send back the token to the user
@@ -27,7 +27,7 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.get('/me', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   //We'll just send back the user details and the token
   res.json({
     message : 'You made it to the secure route',

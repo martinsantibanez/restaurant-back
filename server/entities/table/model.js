@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var tableSchema = Schema({
   number: {type: Number, required: true},
   waiter: {type: Schema.Types.ObjectId, ref: 'User'},
-  products: [{
+  order: [{
     product: {type: Schema.Types.ObjectId, ref: 'Product'},
     quantity: Number
   }],
